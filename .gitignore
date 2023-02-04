@@ -1,0 +1,16 @@
+#-------------------------
+# Temporary folder
+#-------------------------
+/public/imagekit/*
+!/public/imagekit/spairum.png
+/node_modules
+
+#-------------------------
+# Temporary Files
+#-------------------------
+package-lock.json
+
+#-------------------------
+# Environment Variables
+#-------------------------
+.env
