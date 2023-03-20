@@ -14,7 +14,7 @@ app.use(cors())
 app.enable('trust proxy');
 
 app.use("/api/cdn/image/", express.static("public/imagekit"));
-
+app.use("/api/cdn/file/", express.static("public/filekit"));
 
 const routes = require('./routes');
 app.use('/api/cdn', routes);

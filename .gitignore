@@ -2,6 +2,7 @@
 # Temporary folder
 #-------------------------
 /public/imagekit/*
+/public/filekit/*
 !/public/imagekit/spairum.png
 /node_modules
 
