@@ -1,8 +1,10 @@
 require('dotenv').config();
+const http = process.env.URL_STATE || "http";
 module.exports = {
     single: async (req, res) => {
         try {
-            const Url = req.protocol + '://' + req.get('host');
+
+            const Url = http + '://' + req.get('host');
             const imageUrl = Url + '/api/cdn/image/' + req.file.filename;
             const imageWebpUrl = Url + '/api/cdn/image/' + req.file.filename.split('.')[0] + ".webp";
 
@@ -38,7 +40,7 @@ module.exports = {
         }
     },file: async (req, res) => {
         try {
-            const Url = req.protocol + '://' + req.get('host');
+            const Url = http + '://' + req.get('host');
             console.log(req);
             const fileUrl = Url + '/api/cdn/file/' + req.file.filename;
 
