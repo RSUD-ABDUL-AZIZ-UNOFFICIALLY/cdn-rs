@@ -3,8 +3,10 @@
 #-------------------------
 /public/imagekit/*
 /public/filekit/*
+/public/video/*
 !/public/imagekit/.gitkeep
 !/public/filekit/.gitkeep
+!/public/video/.gitkeep
 
 !/public/imagekit/spairum.png
 /node_modules
