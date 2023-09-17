@@ -63,5 +63,31 @@ module.exports = {
                 data: null
             });
         }
+    },
+    video: async (req, res) => {
+        try {
+            const Url = http + '://' + req.get('host');
+            console.log(req);
+            const fileUrl = Url + '/api/cdn/video/' + req.file.filename;
+
+            const file = ({
+                title: req.file.filename,
+                url: fileUrl,
+                size: req.file.size,
+            });
+
+            res.status(200).json({
+                status: true,
+                message: "success",
+                data: file
+            });
+
+        } catch (err) {
+            return res.status(400).json({
+                status: false,
+                message: err.message,
+                data: null
+            });
+        }
     }
 }

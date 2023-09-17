@@ -15,6 +15,7 @@ app.enable('trust proxy');
 
 app.use("/api/cdn/image/", express.static("public/imagekit"));
 app.use("/api/cdn/file/", express.static("public/filekit"));
+app.use("/api/cdn/video/", express.static("public/video"));
 
 const routes = require('./routes');
 app.use('/api/cdn', routes);
