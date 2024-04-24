@@ -9,5 +9,8 @@ const webpController = require('../controllers/webpController');
 router.post('/upload/img', upload.single('image'), webpController.webp, media.single);
 router.post('/upload/file', upload_file.single('file'), media.file);
 router.post('/upload/video', upload_video.single('video'), media.video);
+router.get('/media/patch', media.patch);
+router.get('/media/fs/:id', auth.check, media.getDataFs);
+router.delete('/media/fs/:id', auth.check, media.deleteFs);
 // router.post('/upload/multi', storage.array('image', 10), media.multi);
 module.exports = router;
