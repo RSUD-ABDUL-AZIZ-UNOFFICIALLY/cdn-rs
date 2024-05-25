@@ -7,15 +7,6 @@
 !/public/imagekit/.gitkeep
 !/public/filekit/.gitkeep
 !/public/video/.gitkeep
-/jsonDB/files/*
-/jsonDB/videos/*
-/jsonDB/images/*
-/jsonDB/links/*
-
-!/jsonDB/files/.gitkeep
-!/jsonDB/videos/.gitkeep
-!/jsonDB/images/.gitkeep
-!/jsonDB/links/.gitkeep
 
 
 !/public/imagekit/spairum.png
