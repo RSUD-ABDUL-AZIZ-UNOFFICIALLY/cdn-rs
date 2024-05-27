@@ -30,9 +30,6 @@ module.exports = {
                 data: {
                     Url: Url,
                     shortUrl: shortUrl,
-                    // cekFile: cekFile,
-                    // short: shortUrl,
-                    // url: req.body.url,
                 }
             });
         } catch (err) {
