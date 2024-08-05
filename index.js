@@ -13,9 +13,24 @@ app.use(express.json());
 app.use(cors())
 app.enable('trust proxy');
 
-app.use("/api/cdn/image/", express.static("public/imagekit"));
-app.use("/api/cdn/file/", express.static("public/filekit"));
-app.use("/api/cdn/video/", express.static("public/video"));
+app.use("/api/cdn/image/", express.static("public/imagekit"), {
+    setHeaders: (res, path, stat) => {
+        res.set('Cache-Control', 'public, max-age=120');
+        res.set('ETag', package.version); // add etag
+    }
+});
+app.use("/api/cdn/file/", express.static("public/filekit"), {
+    setHeaders: (res, path, stat) => {
+        res.set('Cache-Control', 'public, max-age=120');
+        res.set('ETag', package.version); // add etag
+    }
+});
+app.use("/api/cdn/video/", express.static("public/video"), {
+    setHeaders: (res, path, stat) => {
+        res.set('Cache-Control', 'public, max-age=180');
+        res.set('ETag', package.version); // add etag
+    }
+});
 
 const routes = require('./routes');
 app.use('/api/cdn', routes);
