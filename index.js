@@ -16,7 +16,7 @@ app.enable('trust proxy');
 
 app.use("/api/cdn/image/", express.static(path.join(__dirname + "/public/imagekit/"), {
     setHeaders: (res, path, stat) => {
-        res.set('Cache-Control', 'public, max-age=120');
+        res.set('Cache-Control', 'public, max-age=3600');
     }
 }));
 app.use("/api/cdn/file/", express.static(path.join(__dirname + "/public/filekit/"), {
