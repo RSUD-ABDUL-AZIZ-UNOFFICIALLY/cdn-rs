@@ -29,6 +29,15 @@ const storage_video = multer.diskStorage({
         cb(null, uniqueSuffix + file.originalname.split(' ').join(''));
     }
 });
+const storage_fr = multer.diskStorage({
+    destination: function (req, file, callback) {
+        callback(null, './public/fr/images');
+    },
+    filename: function (req, file, cb) {
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
+        cb(null, uniqueSuffix + file.originalname.split(' ').join(''));
+    }
+});
 const upload = multer({
     storage: storage,
     fileFilter: (req, file, callback) => {
@@ -101,8 +110,27 @@ const upload_video = multer({
         next(err);
     }
 });
+const upload_fr = multer({
+    storage: storage_fr,
+    fileFilter: (req, file, callback) => {
+        if (file.mimetype == 'image/png'
+            || file.mimetype == 'image/jpg'
+            || file.mimetype == 'image/jpeg'
+            || file.mimetype == 'image/svg+xml') {
+            callback(null, true);
+        } else {
+            callback(null, false);
+            callback(new Error('only png, jpg, and jpeg allowed to upload!'));
+        }
+    },
+    onError: function (err, next) {
+        console.log('error', err);
+        next(err);
+    }
+});
 module.exports = {
     upload,
     upload_file,
-    upload_video
+    upload_video,
+    upload_fr
     };

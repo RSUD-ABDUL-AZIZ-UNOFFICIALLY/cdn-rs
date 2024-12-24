@@ -29,6 +29,11 @@ app.use("/api/cdn/video/", express.static(path.join(__dirname + "/public/video/"
         res.set('Cache-Control', 'public, max-age=180');
     }
 }));
+app.use("/api/cdn/fr/", express.static(path.join(__dirname + "/public/fr/images/"), {
+    setHeaders: (res, path, stat) => {
+        res.set('Cache-Control', 'public, max-age=180');
+    }
+}));
 
 const routes = require('./routes');
 app.use('/api/cdn', routes);
