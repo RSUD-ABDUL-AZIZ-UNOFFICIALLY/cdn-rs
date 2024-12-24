@@ -18,6 +18,7 @@ router.delete('/media/fs/:id', auth.check, media.deleteFs);
 
 router.post('/upload/fr/recognition', upload_fr.single('image'), fr.embed);
 router.put('/upload/fr/recognition', upload_fr.single('image'), fr.compare);
+router.get('/upload/fr/recognition', fr.metadata);
 
 router.get('/short', links.short);
 // router.get('/s/:id', links.getShort);

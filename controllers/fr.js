@@ -17,7 +17,7 @@ module.exports = {
             let crop = await autoCropFace(IMAGE_PATH, req.body.name);
             fs.unlinkSync(path.join(__dirname + './../public/fr/images/' + req.file.filename));
             if (descriptors.length === 0) {
-                return res.status(201).json({
+                return res.status(404).json({
                     status: true,
                     message: "Tidak ada wajah yang terdeteksi",
                 });
@@ -45,7 +45,7 @@ module.exports = {
             });
 
         } catch (err) {
-            return res.status(400).json({
+            return res.status(500).json({
                 status: false,
                 message: err.message,
                 data: null
@@ -90,13 +90,37 @@ module.exports = {
             });
         } catch (err) {
             console.log(err);
-            return res.status(400).json({
+            return res.status(500).json({
                 status: false,
                 message: err.message,
                 data: null
             });
         }
     },
+    metadata: async (req, res) => {
+        try {
+            let metadata = req.query.metadata;
+            let data = fs.existsSync(path.join(__dirname + './../public/fr/metadata/' + metadata));
+            if (!data) {
+                return res.status(404).json({
+                    status: true,
+                    message: "Metadata tidak ditemukan",
+                });
+            }
+            return res.status(200).json({
+                status: true,
+                message: "success",
+                data: null
+            });
+        } catch (err) {
+            console.log(err);
+            return res.status(500).json({
+                status: false,
+                message: err.message,
+                data: null
+            });
+        }
+    }
 }
 function euclideanDistance2(descriptor1, descriptor2) {
     let sum = 0;
