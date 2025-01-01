@@ -120,8 +120,48 @@ module.exports = {
                 data: null
             });
         }
+    },
+
+    allMetadata: async (req, res) => {
+        try {
+            let data = fs.readdirSync(path.join(__dirname + './../public/fr/metadata'));
+            data = data.filter((file) => file.startsWith('static_'));
+            return res.status(200).json({
+                status: true,
+                message: "success",
+                data: data
+            });
+        } catch (err) {
+            console.log(err);
+            return res.status(500).json({
+                status: false,
+                message: err.message,
+                data: null
+            });
+        }
+    },
+    MetadataFR: async (req, res) => {
+        try {
+            let metadata = req.params.metadata;
+            let data = fs.readFileSync(path.join(__dirname + './../public/fr/metadata/' + metadata), 'utf8');
+            data = JSON.parse(data);
+            data.image = http + '://' + req.headers.host + data.image;
+            return res.status(200).json({
+                status: true,
+                message: "success",
+                data: data
+            });
+        } catch (err) {
+            console.log(err);
+            return res.status(500).json({
+                status: false,
+                message: err.message,
+                data: null
+            });
+        }
     }
 }
+
 function euclideanDistance2(descriptor1, descriptor2) {
     let sum = 0;
     for (let i = 0; i < descriptor1.length; i++) {
