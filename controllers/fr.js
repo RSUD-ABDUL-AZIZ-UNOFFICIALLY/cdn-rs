@@ -55,7 +55,7 @@ module.exports = {
             let IMAGE_PATH = path.join(__dirname + './../public/fr/images/' + req.file.filename);
             console.log(IMAGE_PATH);
             let metadata = req.body.metadata;
-            const descriptors = await detectFaces(IMAGE_PATH);
+            let descriptors = await detectFaces(IMAGE_PATH);
             if (descriptors.length === 0) {
                 return res.status(201).json({
                     status: true,

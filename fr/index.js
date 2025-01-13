@@ -21,10 +21,10 @@ async function loadModels() {
 // Fungsi untuk mendeteksi wajah
 async function detectFaces(imagePath) {
     // Memuat gambar
-    const img = await canvas.loadImage(imagePath);
+    let img = await canvas.loadImage(imagePath);
     // Deteksi wajah dengan embedding
     console.log('Mendeteksi wajah...');
-    const detections = await faceapi
+    let detections = await faceapi
         .detectAllFaces(img, new faceapi.TinyFaceDetectorOptions())
         .withFaceLandmarks()
         .withFaceDescriptors();
@@ -41,15 +41,15 @@ function euclideanDistance(vec1, vec2) {
 }
 async function autoCropFace(imagePath, name) {
     // Muat gambar
-    const img = await canvas.loadImage(imagePath);
+    let img = await canvas.loadImage(imagePath);
 
     // Buat canvas untuk menggambar gambar
-    const imgCanvas = canvas.createCanvas(img.width, img.height);
-    const ctx = imgCanvas.getContext('2d');
+    let imgCanvas = canvas.createCanvas(img.width, img.height);
+    let ctx = imgCanvas.getContext('2d');
     ctx.drawImage(img, 0, 0);
 
     // Deteksi wajah
-    const detections = await faceapi.detectAllFaces(imgCanvas, new faceapi.TinyFaceDetectorOptions())
+    let detections = await faceapi.detectAllFaces(imgCanvas, new faceapi.TinyFaceDetectorOptions())
         .withFaceLandmarks()
         .withFaceDescriptors();
 
@@ -59,19 +59,19 @@ async function autoCropFace(imagePath, name) {
     }
 
     // Pilih wajah pertama yang terdeteksi
-    // const face = detections[0];
+    // let face = detections[0];
     let i = 0;
     for (let face of detections) {
-        const { x, y, width, height } = face.detection.box;
+        let { x, y, width, height } = face.detection.box;
 
         // Potong gambar berdasarkan koordinat bounding box
-        const croppedCanvas = canvas.createCanvas(width, height);
-        const croppedCtx = croppedCanvas.getContext('2d');
+        let croppedCanvas = canvas.createCanvas(width, height);
+        let croppedCtx = croppedCanvas.getContext('2d');
         croppedCtx.drawImage(imgCanvas, x, y, width, height, 0, 0, width, height);
 
         // Simpan gambar hasil crop
-        const out = fs.createWriteStream(path.join(__dirname + './../public/fr/images/' + name + i + '.jpg'));
-        const stream = croppedCanvas.createJPEGStream();
+        let out = fs.createWriteStream(path.join(__dirname + './../public/fr/images/' + name + i + '.jpg'));
+        let stream = croppedCanvas.createJPEGStream();
         stream.pipe(out);
         i++;
 
