@@ -80,9 +80,11 @@ async function autoCropFace(imagePath, name) {
     return true;
 
 }
-
+// Main function
+(async () => {
+    await loadModels();
+})();
 module.exports = {
-    loadModels,
     detectFaces,
     euclideanDistance,
     autoCropFace

@@ -1,7 +1,7 @@
 require('dotenv').config();
 const path = require('path');
 const fs = require('fs');
-const { loadModels, detectFaces, euclideanDistance, autoCropFace } = require('../fr');
+const { detectFaces, euclideanDistance, autoCropFace } = require('../fr');
 const { rand, data } = require('@tensorflow/tfjs-node');
 const { file } = require('./mediaController');
 const http = process.env.URL_STATE || "http";
@@ -9,8 +9,6 @@ module.exports = {
     embed: async (req, res) => {
         try {
             let IMAGE_PATH = path.join(__dirname + './../public/fr/images/' + req.file.filename);
-            console.log(IMAGE_PATH);
-            await loadModels();
 
             const descriptors = await detectFaces(IMAGE_PATH);
             // delete file after use
@@ -57,7 +55,6 @@ module.exports = {
             let IMAGE_PATH = path.join(__dirname + './../public/fr/images/' + req.file.filename);
             console.log(IMAGE_PATH);
             let metadata = req.body.metadata;
-            await loadModels();
             const descriptors = await detectFaces(IMAGE_PATH);
             if (descriptors.length === 0) {
                 return res.status(201).json({
