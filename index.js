@@ -7,6 +7,7 @@ require('dotenv').config();
 const {
     PORT = 3110
 } = process.env;
+console.log(process.env.JWT_SECRET_KEY);
 const morgan = require('morgan');
 const cors = require('cors')
 app.use(morgan('dev'));
