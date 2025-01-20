@@ -1,6 +1,6 @@
 {
   "name": "cdn-rs",
-  "version": "1.1.4",
+  "version": "1.2.4",
   "description": "add cdn to your server",
   "main": "index.js",
   "scripts": {
@@ -20,6 +20,7 @@
     "node-fetch": "^3.3.0",
     "patch": "^0.0.1",
     "path": "^0.12.7",
+    "sharp": "^0.33.5",
     "webp-converter": "^2.3.3"
   }
 }
