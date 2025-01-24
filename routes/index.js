@@ -20,6 +20,7 @@ router.post('/upload/fr/recognition', upload_fr.single('image'), fr.embed);
 router.put('/upload/fr/recognition', upload_fr.single('image'), fr.compare);
 router.get('/upload/fr/recognition', fr.metadata);
 router.get('/metadata/fr/all', fr.allMetadata);
+router.get('/metadata/fr/all/open', fr.openMetadata);
 router.get('/metadata/fr/by/:metadata', fr.MetadataFR);
 
 router.get('/short', links.short);

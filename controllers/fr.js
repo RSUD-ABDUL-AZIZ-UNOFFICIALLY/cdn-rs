@@ -128,7 +128,33 @@ module.exports = {
             return res.status(200).json({
                 status: true,
                 message: "success",
+                record: data.length,
                 data: data
+            });
+        } catch (err) {
+            console.log(err);
+            return res.status(500).json({
+                status: false,
+                message: err.message,
+                data: null
+            });
+        }
+    },
+    openMetadata: async (req, res) => {
+        try {
+            let data = fs.readdirSync(path.join(__dirname + './../public/fr/metadata'));
+            data = data.filter((file) => file.startsWith('static_'));
+            let result = [];
+            for (let dat of data) {
+                let file = fs.readFileSync(path.join(__dirname + './../public/fr/metadata/' + dat), 'utf8');
+                file = JSON.parse(file);
+                file.image = http + '://' + req.headers.host + file.image;
+                result.push(file);
+            }
+            return res.status(200).json({
+                status: true,
+                message: "success",
+                data: result
             });
         } catch (err) {
             console.log(err);
