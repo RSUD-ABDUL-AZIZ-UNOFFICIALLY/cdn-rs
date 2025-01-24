@@ -12,7 +12,9 @@ module.exports = {
 
             const descriptors = await detectFaces(IMAGE_PATH);
             // delete file after use
-            await autoCropFace(IMAGE_PATH, req.body.nik + req.body.name);
+            let namefile = req.body.nik + req.body.name;
+            const cleanedNamefile = namefile.replace(/[^a-zA-Z0-9]/g, "");
+            await autoCropFace(IMAGE_PATH, cleanedNamefile);
             fs.unlinkSync(path.join(__dirname + './../public/fr/images/' + req.file.filename));
             if (descriptors.length === 0) {
                 return res.status(404).json({
