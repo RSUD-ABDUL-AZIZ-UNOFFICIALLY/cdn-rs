@@ -30,7 +30,7 @@ module.exports = {
                     name: req.body.name,
                     nik: req.body.nik,
                     metadata: filemeta,
-                    image: '/api/cdn/fr/' + req.body.nik + req.body.name + i + '.jpg',
+                    image: '/api/cdn/fr/' + cleanedNamefile + i + '.jpg',
                 }
                 data.push(filemeta);
                 fs.writeFileSync(path.join(__dirname + './../public/fr/metadata/' + filemeta), JSON.stringify(dest), 'utf8');
