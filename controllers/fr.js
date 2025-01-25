@@ -9,11 +9,11 @@ module.exports = {
     embed: async (req, res) => {
         try {
             let IMAGE_PATH = path.join(__dirname + './../public/fr/images/' + req.file.filename);
-
-            const descriptors = await detectFaces(IMAGE_PATH);
-            // delete file after use
             let namefile = req.body.nik + req.body.name;
             const cleanedNamefile = namefile.replace(/[^a-zA-Z0-9]/g, "");
+            const descriptors = await detectFaces(IMAGE_PATH, cleanedNamefile);
+            // delete file after use
+
             await autoCropFace(IMAGE_PATH, cleanedNamefile);
             fs.unlinkSync(path.join(__dirname + './../public/fr/images/' + req.file.filename));
             if (descriptors.length === 0) {
