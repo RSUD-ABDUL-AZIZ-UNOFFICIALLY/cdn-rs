@@ -154,6 +154,7 @@ module.exports = {
             return res.status(200).json({
                 status: true,
                 message: "success",
+                record: result.length,
                 data: result
             });
         } catch (err) {
@@ -202,6 +203,7 @@ module.exports = {
             return res.status(200).json({
                 status: true,
                 message: "success",
+                record: result.length,
                 data: result
             });
         } catch (err) {
