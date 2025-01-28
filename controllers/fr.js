@@ -189,8 +189,13 @@ module.exports = {
     },
     MetadumpFR: async (req, res) => {
         try {
+            let query = req.query.query;
+            console.log(query);
             let data = fs.readdirSync(path.join(__dirname + './../public/fr/images'));
             data = data.filter((file) => !file.startsWith('.gitkeep'));
+            if (query !== undefined) {
+                data = data.filter((file) => file.includes(query));
+            }
             const descendingFiles = data.sort((a, b) => b.localeCompare(a));
             let result = [];
             for (let dat of descendingFiles) {
