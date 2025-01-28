@@ -184,7 +184,34 @@ module.exports = {
                 data: null
             });
         }
-    }
+    },
+    MetadumpFR: async (req, res) => {
+        try {
+            let data = fs.readdirSync(path.join(__dirname + './../public/fr/images'));
+            data = data.filter((file) => !file.startsWith('.gitkeep'));
+            let result = [];
+            for (let dat of data) {
+                console.log(dat);
+                let file = {
+                    metadata: dat,
+                    image: http + '://' + req.headers.host + '/api/cdn/fr/' + dat
+                }
+                result.push(file);
+            }
+            return res.status(200).json({
+                status: true,
+                message: "success",
+                data: result
+            });
+        } catch (err) {
+            console.log(err);
+            return res.status(500).json({
+                status: false,
+                message: err.message,
+                data: null
+            });
+        }
+    },
 }
 
 function euclideanDistance2(descriptor1, descriptor2) {
