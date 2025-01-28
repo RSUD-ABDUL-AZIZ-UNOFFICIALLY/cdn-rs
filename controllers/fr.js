@@ -15,7 +15,7 @@ module.exports = {
             // delete file after use
 
             await autoCropFace(IMAGE_PATH, cleanedNamefile);
-            fs.unlinkSync(path.join(__dirname + './../public/fr/images/' + req.file.filename));
+            // fs.unlinkSync(path.join(__dirname + './../public/fr/images/' + req.file.filename));
             if (descriptors.length === 0) {
                 return res.status(404).json({
                     status: true,
@@ -80,7 +80,7 @@ module.exports = {
                     data: true
                 }
             }
-            fs.unlinkSync(path.join(__dirname + './../public/fr/images/' + req.file.filename));
+            // fs.unlinkSync(path.join(__dirname + './../public/fr/images/' + req.file.filename));
             return res.status(200).json({
                 status: true,
                 message: "success",
