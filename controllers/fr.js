@@ -15,8 +15,8 @@ module.exports = {
             // delete file after use
 
             await autoCropFace(IMAGE_PATH, cleanedNamefile);
-            // fs.unlinkSync(path.join(__dirname + './../public/fr/images/' + req.file.filename));
             if (descriptors.length === 0) {
+                fs.unlinkSync(path.join(__dirname + './../public/fr/images/' + req.file.filename));
                 return res.status(404).json({
                     status: true,
                     message: "Tidak ada wajah yang terdeteksi",
@@ -59,6 +59,7 @@ module.exports = {
             let metadata = req.body.metadata;
             let descriptors = await detectFaces(IMAGE_PATH);
             if (descriptors.length === 0) {
+                fs.unlinkSync(path.join(__dirname + './../public/fr/images/' + req.file.filename));
                 return res.status(201).json({
                     status: true,
                     message: "Tidak ada wajah yang terdeteksi",
