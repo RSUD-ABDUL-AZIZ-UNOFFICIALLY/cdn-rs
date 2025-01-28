@@ -189,8 +189,9 @@ module.exports = {
         try {
             let data = fs.readdirSync(path.join(__dirname + './../public/fr/images'));
             data = data.filter((file) => !file.startsWith('.gitkeep'));
+            const descendingFiles = data.sort((a, b) => b.localeCompare(a));
             let result = [];
-            for (let dat of data) {
+            for (let dat of descendingFiles) {
                 console.log(dat);
                 let file = {
                     metadata: dat,
