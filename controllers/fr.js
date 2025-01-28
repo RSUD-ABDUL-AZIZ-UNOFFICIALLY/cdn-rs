@@ -194,7 +194,9 @@ module.exports = {
             let data = fs.readdirSync(path.join(__dirname + './../public/fr/images'));
             data = data.filter((file) => !file.startsWith('.gitkeep'));
             if (query !== undefined) {
-                data = data.filter((file) => file.includes(query));
+                const regex = new RegExp(query, 'i');  // 'i' for case-insensitive search
+                data = data.filter((file) => regex.test(file));
+                // data = data.filter((file) => file.startsWith(query));
             }
             const descendingFiles = data.sort((a, b) => b.localeCompare(a));
             let result = [];

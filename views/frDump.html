@@ -48,7 +48,9 @@
     <script>
         // Fetch data and populate the grid
         async function fetchPhotos() {
-            const response = await fetch('/api/cdn/metadata/fr/all/dump'); // Replace with your API endpoint
+            let query = window.location.search;
+            // console.log(query);
+            const response = await fetch('/api/cdn/metadata/fr/all/dump'+query); // Replace with your API endpoint
             const photos = await response.json();
 
             const gridContainer = document.getElementById('photo-grid');
