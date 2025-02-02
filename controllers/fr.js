@@ -9,12 +9,14 @@ module.exports = {
     embed: async (req, res) => {
         try {
             let IMAGE_PATH = path.join(__dirname + './../public/fr/images/' + req.file.filename);
-
-            const descriptors = await detectFaces(IMAGE_PATH);
+            let namefile = req.body.nik + req.body.name;
+            const cleanedNamefile = namefile.replace(/[^a-zA-Z0-9]/g, "");
+            const descriptors = await detectFaces(IMAGE_PATH, cleanedNamefile);
             // delete file after use
-            await autoCropFace(IMAGE_PATH, req.body.nik + req.body.name);
-            fs.unlinkSync(path.join(__dirname + './../public/fr/images/' + req.file.filename));
+
+            await autoCropFace(IMAGE_PATH, cleanedNamefile);
             if (descriptors.length === 0) {
+                fs.unlinkSync(path.join(__dirname + './../public/fr/images/' + req.file.filename));
                 return res.status(404).json({
                     status: true,
                     message: "Tidak ada wajah yang terdeteksi",
@@ -28,7 +30,7 @@ module.exports = {
                     name: req.body.name,
                     nik: req.body.nik,
                     metadata: filemeta,
-                    image: '/api/cdn/fr/' + req.body.nik + req.body.name + i + '.jpg',
+                    image: '/api/cdn/fr/' + cleanedNamefile + i + '.jpg',
                 }
                 data.push(filemeta);
                 fs.writeFileSync(path.join(__dirname + './../public/fr/metadata/' + filemeta), JSON.stringify(dest), 'utf8');
@@ -57,6 +59,7 @@ module.exports = {
             let metadata = req.body.metadata;
             let descriptors = await detectFaces(IMAGE_PATH);
             if (descriptors.length === 0) {
+                fs.unlinkSync(path.join(__dirname + './../public/fr/images/' + req.file.filename));
                 return res.status(201).json({
                     status: true,
                     message: "Tidak ada wajah yang terdeteksi",
@@ -78,7 +81,7 @@ module.exports = {
                     data: true
                 }
             }
-            fs.unlinkSync(path.join(__dirname + './../public/fr/images/' + req.file.filename));
+            // fs.unlinkSync(path.join(__dirname + './../public/fr/images/' + req.file.filename));
             return res.status(200).json({
                 status: true,
                 message: "success",
@@ -126,7 +129,34 @@ module.exports = {
             return res.status(200).json({
                 status: true,
                 message: "success",
+                record: data.length,
                 data: data
+            });
+        } catch (err) {
+            console.log(err);
+            return res.status(500).json({
+                status: false,
+                message: err.message,
+                data: null
+            });
+        }
+    },
+    openMetadata: async (req, res) => {
+        try {
+            let data = fs.readdirSync(path.join(__dirname + './../public/fr/metadata'));
+            data = data.filter((file) => file.startsWith('static_'));
+            let result = [];
+            for (let dat of data) {
+                let file = fs.readFileSync(path.join(__dirname + './../public/fr/metadata/' + dat), 'utf8');
+                file = JSON.parse(file);
+                file.image = http + '://' + req.headers.host + file.image;
+                result.push(file);
+            }
+            return res.status(200).json({
+                status: true,
+                message: "success",
+                record: result.length,
+                data: result
             });
         } catch (err) {
             console.log(err);
@@ -156,7 +186,43 @@ module.exports = {
                 data: null
             });
         }
-    }
+    },
+    MetadumpFR: async (req, res) => {
+        try {
+            let query = req.query.query;
+            console.log(query);
+            let data = fs.readdirSync(path.join(__dirname + './../public/fr/images'));
+            data = data.filter((file) => !file.startsWith('.gitkeep'));
+            if (query !== undefined) {
+                const regex = new RegExp(query, 'i');  // 'i' for case-insensitive search
+                data = data.filter((file) => regex.test(file));
+                // data = data.filter((file) => file.startsWith(query));
+            }
+            const descendingFiles = data.sort((a, b) => b.localeCompare(a));
+            let result = [];
+            for (let dat of descendingFiles) {
+                console.log(dat);
+                let file = {
+                    metadata: dat,
+                    image: http + '://' + req.headers.host + '/api/cdn/fr/' + dat
+                }
+                result.push(file);
+            }
+            return res.status(200).json({
+                status: true,
+                message: "success",
+                record: result.length,
+                data: result
+            });
+        } catch (err) {
+            console.log(err);
+            return res.status(500).json({
+                status: false,
+                message: err.message,
+                data: null
+            });
+        }
+    },
 }
 
 function euclideanDistance2(descriptor1, descriptor2) {
