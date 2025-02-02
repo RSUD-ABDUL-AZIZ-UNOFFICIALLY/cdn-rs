@@ -8,6 +8,10 @@
 !/public/filekit/.gitkeep
 !/public/video/.gitkeep
 
+!/public/fr/.gitkeep
+!/public/fr/images/.gitkeep
+!/public/fr/metadata/.gitkeep
+
 !/public/imagekit/spairum.png
 /node_modules
 
