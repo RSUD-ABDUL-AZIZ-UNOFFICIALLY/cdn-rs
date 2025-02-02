@@ -4,6 +4,10 @@
 /public/imagekit/*
 /public/filekit/*
 /public/video/*
+
+/public/fr/images/*
+/public/fr/metadata/*
+
 !/public/imagekit/.gitkeep
 !/public/filekit/.gitkeep
 !/public/video/.gitkeep
