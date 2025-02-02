@@ -7,6 +7,8 @@
 
 /public/fr/images/*
 /public/fr/metadata/*
+/cache/*
+!/cache/.gitkeep
 
 !/public/imagekit/.gitkeep
 !/public/filekit/.gitkeep
