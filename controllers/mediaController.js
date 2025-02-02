@@ -157,6 +157,7 @@ module.exports = {
             res.status(200).json({
                 status: true,
                 message: "success",
+                record: files.length,
                 data: files
             });
 

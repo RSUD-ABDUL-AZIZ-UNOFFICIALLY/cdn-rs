@@ -11,6 +11,7 @@
 !/public/imagekit/.gitkeep
 !/public/filekit/.gitkeep
 !/public/video/.gitkeep
+
 !/public/fr/.gitkeep
 !/public/fr/images/.gitkeep
 !/public/fr/metadata/.gitkeep
@@ -22,7 +23,6 @@
 # Temporary Files
 #-------------------------
 package-lock.json
-
 #-------------------------
 # Environment Variables
 #-------------------------
