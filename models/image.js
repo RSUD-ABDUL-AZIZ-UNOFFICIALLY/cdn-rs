@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
   Image.init({
     url: DataTypes.STRING,
     face: DataTypes.ENUM('true', 'false'),
-    faces: DataTypes.STRING
+    faces: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Image',

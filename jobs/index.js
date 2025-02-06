@@ -51,7 +51,7 @@ const fetchData = async () => {
     await Image.bulkCreate(newUrls.map(url => ({ url })));
 
 };
-fetchData().catch(console.error);
+// fetchData().catch(console.error);
 
 async function indexFace() {
     let dataImage = await Image.findAll({
@@ -83,7 +83,7 @@ async function indexFace() {
         if (detections.length === 0) {
             console.log('Tidak ada wajah yang terdeteksi.');
             await Image.update({
-                face: false,
+                face: 'false',
                 faces: 0
             }, {
                 where: {
@@ -94,7 +94,7 @@ async function indexFace() {
         }
         console.log(`Jumlah wajah terdeteksi: ${detections.length}`);
         await Image.update({
-            face: true,
+            face: 'true',
             faces: detections.length
         }, {
             where: {
@@ -131,7 +131,7 @@ async function indexFace() {
         }
     }
 }
-// indexFace().catch(console.error);
+indexFace().catch(console.error);
 
 const saveImageWithBuffer = async (url, path) => {
     const response = await fetch(url);

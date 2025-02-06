@@ -14,13 +14,14 @@ module.exports = {
       },
       url: {
         type: Sequelize.STRING,
-        unique: true
+        unique: true,
+        primaryKey: true,
       },
       face: {
         type: Sequelize.ENUM('true', 'false')
       },
       faces: {
-        type: Sequelize.STRING
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,
