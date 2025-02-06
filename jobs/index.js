@@ -59,7 +59,7 @@ async function indexFace() {
             face: null
         },
         attibutes: ['id', 'url'],
-        limit: 1
+        // limit: 1
     });
 
     // console.log(dataImage);
