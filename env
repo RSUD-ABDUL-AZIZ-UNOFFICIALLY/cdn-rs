@@ -1,3 +1,4 @@
 PORT = 3110
 JWT_SECRET_KEY =
 URL_STATE = "http"
+DIR=
