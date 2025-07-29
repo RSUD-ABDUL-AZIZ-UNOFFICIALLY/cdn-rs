@@ -13,7 +13,7 @@ router.post('/upload/video', upload_video.single('video'), media.video);
 router.get('/media/patch', media.patch);
 router.get('/media/fs/:id', auth.check, media.getDataFs);
 router.delete('/media/fs/:id', auth.check, media.deleteFs);
-router.post('/upload/dir/file', upload_subDir.single('file'), media.file);
+router.post('/upload/dir/file', upload_subDir.single('file'), media.document);
 // router.post('/upload/multi', storage.array('image', 10), media.multi);
 
 router.get('/short', links.short);
