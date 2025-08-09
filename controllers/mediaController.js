@@ -64,6 +64,32 @@ module.exports = {
             });
         }
     },
+    document: async (req, res) => {
+        try {
+            const Url = http + '://' + req.get('host');
+           const query = req.query
+            const fileUrl = Url + '/api/cdn/document/'+req.query.file + '/' + req.file.filename;
+
+            const file = ({
+                title: req.file.filename,
+                url: fileUrl,
+                size: req.file.size,
+            });
+
+            res.status(200).json({
+                status: true,
+                message: "success",
+                data: file
+            });
+
+        } catch (err) {
+            return res.status(400).json({
+                status: false,
+                message: err.message,
+                data: null
+            });
+        }
+    },
     video: async (req, res) => {
         try {
             const Url = http + '://' + req.get('host');

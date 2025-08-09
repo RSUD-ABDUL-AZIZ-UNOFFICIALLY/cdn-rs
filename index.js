@@ -8,7 +8,8 @@ require('dotenv').config();
 const {
     PORT = 3110
 } = process.env;
-console.log(process.env.JWT_SECRET_KEY);
+const DIR = process.env.DIR || './public/defaultDir';
+// console.log(process.env.JWT_SECRET_KEY);
 const morgan = require('morgan');
 const cors = require('cors')
 app.use(morgan('dev'));
@@ -54,6 +55,11 @@ app.use("/api/cdn/file/", express.static(path.join(__dirname + "/public/filekit/
 app.use("/api/cdn/video/", express.static(path.join(__dirname + "/public/video/"), {
     setHeaders: (res, path, stat) => {
         res.set('Cache-Control', 'public, max-age=180');
+    }
+}));
+app.use("/api/cdn/document/", express.static(path.join(DIR + "/"), {
+    setHeaders: (res, path, stat) => {
+        res.set('Cache-Control', 'public, max-age=120');
     }
 }));
 
