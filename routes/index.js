@@ -5,6 +5,7 @@ const auth = require('../middlewares/');
 const media = require('../controllers/mediaController');
 const webpController = require('../controllers/webpController');
 const links = require('../controllers/links');
+const watermark = require('../controllers/watermarController')
 
 // router.post('/upload/img', auth.check, storage.single('image'), webpController.webp, media.single);
 router.post('/upload/img', upload.single('image'), webpController.webp, media.single);
@@ -14,6 +15,7 @@ router.get('/media/patch', media.patch);
 router.get('/media/fs/:id', auth.check, media.getDataFs);
 router.delete('/media/fs/:id', auth.check, media.deleteFs);
 router.post('/upload/dir/file', auth.check, upload_subDir.single('file'), media.document);
+router.post('/media/watermark/pdf', watermark.pdfMark), 
 // router.post('/upload/multi', storage.array('image', 10), media.multi);
 
 router.get('/short', links.short);
