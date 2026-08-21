@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { upload, upload_file, upload_video,upload_subDir } = require('../middlewares/storage');
+const { upload, upload_file, upload_video, upload_subDir, multi_file } = require('../middlewares/storage');
 const auth = require('../middlewares/');
 const media = require('../controllers/mediaController');
 const webpController = require('../controllers/webpController');
@@ -14,7 +14,7 @@ router.get('/media/patch', media.patch);
 router.get('/media/fs/:id', auth.check, media.getDataFs);
 router.delete('/media/fs/:id', auth.check, media.deleteFs);
 router.post('/upload/dir/file', auth.check, upload_subDir.single('file'), media.document);
-// router.post('/upload/multi', storage.array('image', 10), media.multi);
+router.post('/upload/tmp', multi_file.array('file', 10), media.multi);
 
 router.get('/short', links.short);
 // router.get('/s/:id', links.getShort);

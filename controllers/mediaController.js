@@ -30,7 +30,14 @@ module.exports = {
         }
     }, multi: (req, res) => {
         try {
-            res.json(req.files);
+            for (let i = 0; i < req.files.length; i++) {
+                req.files[i].url = http + '://' + req.get('host') + '/api/cdn/tmp/' + req.files[i].filename;
+            }
+            return res.status(200).json({
+                status: true,
+                message: "success",
+                data: req.files
+            })
         } catch (err) {
             return res.status(500).json({
                 status: false,

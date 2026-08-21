@@ -4,9 +4,11 @@
 /public/imagekit/*
 /public/filekit/*
 /public/video/*
+/public/tmp/*
 !/public/imagekit/.gitkeep
 !/public/filekit/.gitkeep
 !/public/video/.gitkeep
+!/public/tmp/.gitkeep
 
 !/public/fr/.gitkeep
 !/public/fr/images/.gitkeep

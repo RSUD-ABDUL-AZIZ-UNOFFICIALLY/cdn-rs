@@ -1,0 +1,22 @@
+{
+  "environment_info": {
+    "os": "macOS"
+  },
+  "workspace_info": {
+    "root": "/Users/rsudabdulaziz/Documents/Backend/API-RSUD/cdn-rs",
+    "structure": [
+      "env",
+      "index.js",
+      "short.json",
+      "cache/",
+      "controllers/",
+      "middlewares/",
+      "public/",
+      "routes/",
+      "seeders/"
+    ]
+  },
+  "userMemory": {},
+  "sessionMemory": {},
+  "repoMemory": {}
+}

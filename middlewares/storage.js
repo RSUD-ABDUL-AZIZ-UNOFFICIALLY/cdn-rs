@@ -34,6 +34,14 @@ const storage_video = multer.diskStorage({
         cb(null, uniqueSuffix + file.originalname.split(' ').join(''));
     }
 });
+const storage_tmp = multer.diskStorage({
+    destination: function (req, file, callback) {
+        callback(null, './public/tmp');
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.originalname.split(' ').join(''));
+    }
+})
 const storage_subDir = multer.diskStorage({
     destination: function (req, file, callback) {
         console.log("CARISS")
@@ -147,11 +155,38 @@ const upload_subDir = multer({
             callback(null, false);
             callback(new Error('only png, jpg,svg+xml,pdf, and officedocument allowed to upload!'));
         }
-    },
+    }
+})
+const multi_file = multer({
+    storage: storage_tmp,
+    multi_file: (req, file, callback) => {
+        if (file.mimetype == 'image/png'
+            || file.mimetype == 'image/jpg'
+            || file.mimetype == 'image/jpeg'
+            || file.mimetype == 'image/svg+xml'
+            || file.mimetype == 'application/pdf'
+            || file.mimetype == 'application/json'
+            || file.mimetype == 'text/csv'
+            || file.mimetype == 'text/javascript'
+            || file.mimetype == 'application/msword'
+            || file.mimetype == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+            || file.mimetype == 'application/vnd.ms-excel'
+            || file.mimetype == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+            || file.mimetype == 'application/vnd.ms-powerpoint'
+            || file.mimetype == 'application/vnd.openxmlformats-officedocument.presentationml.presentation'
+            || file.mimetype == 'text/plain'
+        ) {
+            callback(null, true);
+        } else {
+            callback(null, false);
+            callback(new Error('only png, jpg,svg+xml,pdf, and officedocument allowed to upload!'));
+        }
+    }
 })
 module.exports = {
     upload,
     upload_file,
     upload_video,
-    upload_subDir
+    upload_subDir,
+    multi_file
     };

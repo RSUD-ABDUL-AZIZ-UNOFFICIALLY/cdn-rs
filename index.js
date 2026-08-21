@@ -52,6 +52,11 @@ app.use("/api/cdn/file/", express.static(path.join(__dirname + "/public/filekit/
         res.set('Cache-Control', 'public, max-age=120');
     }
 }));
+app.use("/api/cdn/tmp/", express.static(path.join(__dirname + "/public/tmp/"), {
+    setHeaders: (res, path, stat) => {
+        res.set('Cache-Control', 'public, max-age=120');
+    }
+}));
 app.use("/api/cdn/video/", express.static(path.join(__dirname + "/public/video/"), {
     setHeaders: (res, path, stat) => {
         res.set('Cache-Control', 'public, max-age=180');
