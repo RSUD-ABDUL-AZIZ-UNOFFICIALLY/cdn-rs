@@ -11,10 +11,10 @@ const {
 const DIR = process.env.DIR || './public/defaultDir';
 // console.log(process.env.JWT_SECRET_KEY);
 const morgan = require('morgan');
-const cors = require('cors')
+// const cors = require('cors')
 app.use(morgan('dev'));
 app.use(express.json());
-app.use(cors())
+// app.use(cors())
 app.enable('trust proxy');
 
 // app.use("/api/cdn/image/", express.static(path.join(__dirname + "/public/imagekit/"), {
