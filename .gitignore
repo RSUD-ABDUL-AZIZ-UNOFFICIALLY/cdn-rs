@@ -20,7 +20,7 @@
 #-------------------------
 # Temporary Files
 #-------------------------
-package-lock.json
+# package-lock.json
 #-------------------------
 # Environment Variables
 #-------------------------

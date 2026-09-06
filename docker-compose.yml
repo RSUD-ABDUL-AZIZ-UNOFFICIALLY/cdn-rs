@@ -1,0 +1,20 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: cdn-api
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - .env
+    volumes:
+      - ./public:/usr/src/app/public
+    networks:
+      - internal_network
+
+networks:
+  internal_network:
+    driver: bridge
+    # external: true
